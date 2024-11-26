@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Upload, X, FileText } from "lucide-react";
 import { useFileInput } from "@/hooks/use-file-input";
+import Image from "next/image";
 
 export default function Input_03() {
   const [isDragging, setIsDragging] = useState(false);
@@ -16,7 +17,7 @@ export default function Input_03() {
     error,
     validateAndSetFile,
     fileSize,
-  } = useFileInput({ accept: "image/*", maxSize: 5 });
+  } = useFileInput({ accept: "image/*,application/pdf", maxSize: 20 });
 
   function handleFile(file: File) {
     validateAndSetFile(file);
@@ -39,6 +40,8 @@ export default function Input_03() {
             setPreview(reader.result as string);
           };
           reader.readAsDataURL(file);
+        } else if (file.type === "application/pdf") {
+          setPreview("/images/pdf-icon.jpg");
         }
       }
     }, 100);
@@ -70,7 +73,7 @@ export default function Input_03() {
   return (
     <div className="w-full max-w-md space-y-2">
       <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-        Upload file
+        Upload file (Images, PDFs, Word Docs)
       </label>
       <div
         className={cn(
@@ -99,7 +102,7 @@ export default function Input_03() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/*,.doc,.docx,application/pdf"
           onChange={handleChange}
           className="hidden"
         />
@@ -116,10 +119,12 @@ export default function Input_03() {
             <div className="flex items-center gap-4">
               {preview ? (
                 <div className="relative w-16 h-16 rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src={preview}
                     alt="Preview"
                     className="w-full h-full object-cover"
+                    width={50}
+                    height={50}
                   />
                 </div>
               ) : (
