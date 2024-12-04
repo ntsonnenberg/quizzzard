@@ -6,7 +6,11 @@ import { Upload, X, FileText } from "lucide-react";
 import { useFileInput } from "@/hooks/use-file-input";
 import Image from "next/image";
 
-export default function Input_03() {
+interface Props {
+  setFile: (file: File) => void;
+}
+
+export default function Input_03({ setFile }: Props) {
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -21,7 +25,7 @@ export default function Input_03() {
 
   function handleFile(file: File) {
     validateAndSetFile(file);
-
+    setFile(file);
     if (!error) {
       simulateUpload(file);
     }
@@ -105,6 +109,7 @@ export default function Input_03() {
           accept="image/*,.doc,.docx,application/pdf"
           onChange={handleChange}
           className="hidden"
+          name="file"
         />
 
         <div className="p-8 space-y-4">

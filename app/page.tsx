@@ -1,5 +1,4 @@
-import FileInput from "@/components/FileInput";
-import Btn01 from "@/components/kokonutui/btn-01";
+import FileUploadForm from "@/components/FileUploadForm";
 
 export default function Home() {
   return (
@@ -8,8 +7,7 @@ export default function Home() {
         <h1 className="font-bold text-4xl">Welcome to Quizzard</h1>
         <h2 className="font-thin">Please upload a notes to analyze</h2>
       </div>
-      <FileInput />
-      <Btn01 className="w-2/3">Create Quiz</Btn01>
+      <FileUploadForm />
     </div>
   );
 }
