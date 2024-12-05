@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 import { generateText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { anthropic } from "@/lib/anthropic";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -37,27 +37,38 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const result = await generateText({
-    model: anthropic("claude-3-5-sonnet-20241022"),
-    messages: [
+  try {
+    const result = await generateText({
+      model: anthropic("claude-3-5-sonnet-20241022"),
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: "What is the Booking code according to this document?",
+            },
+            {
+              type: "file",
+              data: fs.readFileSync(filePath),
+              mimeType: "application/pdf",
+            },
+          ],
+        },
+      ],
+    });
+
+    return NextResponse.json(
+      { claudeReponse: result.text, usage: result.usage },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
       {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: "What is the Booking code according to this document?",
-          },
-          {
-            type: "file",
-            data: fs.readFileSync(filePath),
-            mimeType: "application/pdf",
-          },
-        ],
+        error: "Claude failed to process file",
+        message: error,
       },
-    ],
-  });
-
-  console.log(result);
-
-  return NextResponse.json({ result: "Success" }, { status: 200 });
+      { status: 400 }
+    );
+  }
 }

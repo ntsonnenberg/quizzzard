@@ -19,7 +19,8 @@ export default function FileUploadForm() {
     }
 
     data.append("file", file);
-    const response = await axios.post("/api/file", data);
+    const response = await axios.post("/api/process-file", data);
+    console.log(response.data);
   };
 
   return (
