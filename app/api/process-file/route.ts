@@ -37,16 +37,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const systemPrompt = process.env.SYSTEM_PROMPT;
+  const userPrompt = process.env.USER_PROMPT || "";
+
   try {
     const result = await generateText({
       model: anthropic("claude-3-5-sonnet-20241022"),
+      system: systemPrompt,
       messages: [
         {
           role: "user",
           content: [
             {
               type: "text",
-              text: "What is the Booking code according to this document?",
+              text: userPrompt,
             },
             {
               type: "file",
