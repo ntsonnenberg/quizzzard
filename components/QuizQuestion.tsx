@@ -55,12 +55,12 @@ export default function QuizQuestion({ question, setAnswer, result }: Props) {
   const answeredCorrect =
     result?.result?.chosenChoice === result?.result?.correctChoice;
 
-  const questionNumberClasses = `p-5 px-7 border border-zinc-200 dark:border-zinc-800  bg-zinc-50 dark:bg-zinc-900 rounded-full place-self-start shadow-[0_1px_6px_0_rgba(0,0,0,0.02)] ${
+  const questionNumberClasses = `p-3 px-5 text-2xl border rounded-full place-self-start shadow-[0_1px_6px_0_rgba(0,0,0,0.02)] ${
     result !== undefined
       ? answeredCorrect
         ? "border-green-500 dark:border-green-300 bg-green-200 dark:bg-green-200"
         : "border-red-500 dark:border-red-300 bg-red-200 dark:bg-red-200"
-      : ""
+      : "border-zinc-200 dark:border-zinc-800  bg-zinc-50 dark:bg-zinc-900"
   }`;
 
   const questionWrapperClasses = `my-20 p-4 rounded-md ${
@@ -73,19 +73,23 @@ export default function QuizQuestion({ question, setAnswer, result }: Props) {
     const selectedChoiceIncorrect =
       result?.result?.chosenChoice === option.choice && !answeredCorrect;
 
-    const selectedChoiceClasses = selectedChoice
-      ? "shadow-lg border-2 border-zinc-400 dark:border-zinc-950 bg-zinc-100 dark:bg-zinc-950"
-      : "";
-
+    const selectedChoiceClasses =
+      selectedChoice && !selectedChoiceIncorrect && !correctChoice
+        ? "shadow-lg border-2 border-zinc-400 dark:border-zinc-950 bg-zinc-100 dark:bg-zinc-950"
+        : "";
     const correctChoiceClasses = correctChoice
       ? "shadow-lg border-2 border-green-500 dark:border-green-300 bg-green-200 dark:bg-green-200"
       : "";
-
     const selectedChoiceIncorrectClasses = selectedChoiceIncorrect
       ? "shadow-lg border-2 border-red-500 dark:border-red-300 bg-red-200 dark:bg-red-200"
       : "";
 
-    const listItemClasses = `mt-2 p-2 flex gap-4 items-center border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 rounded-xl shadow-[0_1px_6px_0_rgba(0,0,0,0.02)] hover:transition-all ease-in-out hover:shadow-md cursor-pointer ${selectedChoiceClasses} ${correctChoiceClasses} ${selectedChoiceIncorrectClasses}`;
+    const notSelectedChoiceClasses =
+      !correctChoice && !selectedChoiceIncorrect
+        ? "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900"
+        : "";
+
+    const listItemClasses = `mt-2 p-2 flex gap-4 items-center rounded-xl shadow-[0_1px_6px_0_rgba(0,0,0,0.02)] hover:transition-all ease-in-out hover:shadow-md cursor-pointer border ${notSelectedChoiceClasses} ${selectedChoiceClasses} ${correctChoiceClasses} ${selectedChoiceIncorrectClasses}`;
 
     return (
       <li
