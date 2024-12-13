@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { generateText } from "ai";
 import { anthropic } from "@/lib/anthropic";
+import { xai } from "@/lib/xai";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -37,8 +38,46 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const systemPrompt = process.env.SYSTEM_PROMPT;
-  const userPrompt = process.env.USER_PROMPT || "";
+  if (file.type.includes("image/")) {
+    const systemPrompt = process.env.GROK_SYSTEM_PROMPT;
+    const userPrompt = process.env.GROK_USER_PROMPT || "";
+
+    try {
+      const { text } = await generateText({
+        model: xai("grok-vision-beta"),
+        system: systemPrompt,
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: userPrompt,
+              },
+              {
+                type: "image",
+                image: fs.readFileSync(filePath),
+                mimeType: file.type,
+              },
+            ],
+          },
+        ],
+      });
+
+      return NextResponse.json({ text }, { status: 200 });
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: "Grok failed to process file",
+          message: error,
+        },
+        { status: 400 }
+      );
+    }
+  }
+
+  const systemPrompt = process.env.CLAUDE_SYSTEM_PROMPT;
+  const userPrompt = process.env.CLAUDE_USER_PROMPT || "";
 
   try {
     const result = await generateText({
@@ -63,7 +102,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { claudeReponse: result.text, usage: result.usage },
+      { text: result.text, usage: result.usage },
       { status: 200 }
     );
   } catch (error) {

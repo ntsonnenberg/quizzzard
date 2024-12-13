@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.2",
+    "@ai-sdk/xai": "^1.0.6",
     "@radix-ui/react-slot": "^1.1.0",
     "ai": "^4.0.7",
     "axios": "^1.7.8",

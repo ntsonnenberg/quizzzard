@@ -21,7 +21,11 @@ export default function Input_03({ setFile }: Props) {
     error,
     validateAndSetFile,
     fileSize,
-  } = useFileInput({ accept: "image/*,application/pdf", maxSize: 20 });
+  } = useFileInput({
+    accept:
+      "image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    maxSize: 20,
+  });
 
   function handleFile(file: File) {
     validateAndSetFile(file);
@@ -64,6 +68,8 @@ export default function Input_03({ setFile }: Props) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
+
+    console.log(selectedFile);
 
     handleFile(selectedFile);
   }

@@ -27,7 +27,7 @@ export default function FileUploadForm() {
 
     const response = await axios.post("/api/process-file", data);
     console.log(response.data);
-    router.push(`/quiz?response=${encodeURI(response.data.claudeReponse)}`);
+    router.push(`/quiz?response=${encodeURI(response.data.text)}`);
 
     setIsLoading(false);
   };
