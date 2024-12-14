@@ -4,6 +4,7 @@ import fs from "fs";
 import { generateText } from "ai";
 import { anthropic } from "@/lib/anthropic";
 import { xai } from "@/lib/xai";
+import mammoth from "mammoth";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -78,6 +79,51 @@ export async function POST(req: NextRequest) {
 
   const systemPrompt = process.env.CLAUDE_SYSTEM_PROMPT;
   const userPrompt = process.env.CLAUDE_USER_PROMPT || "";
+
+  if (
+    file.type.includes(
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+  ) {
+    const { value: wordDocHtml } = await mammoth.convertToHtml({
+      path: filePath,
+    });
+
+    try {
+      const result = await generateText({
+        model: anthropic("claude-3-5-sonnet-20241022"),
+        system: systemPrompt,
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: userPrompt,
+              },
+              {
+                type: "text",
+                text: wordDocHtml,
+              },
+            ],
+          },
+        ],
+      });
+
+      return NextResponse.json(
+        { text: result.text, usage: result.usage },
+        { status: 200 }
+      );
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: "Claude failed to process file",
+          message: error,
+        },
+        { status: 400 }
+      );
+    }
+  }
 
   try {
     const result = await generateText({
