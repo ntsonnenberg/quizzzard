@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
-import { generateText } from "ai";
-import { anthropic } from "@/lib/anthropic";
-import { xai } from "@/lib/xai";
-import mammoth from "mammoth";
+import { generateQuizFromPDF, generateQuizFromWordDoc } from "@/lib/anthropic";
+import { generateQuizFromImage } from "@/lib/xai";
+import { getNoteFromS3, uploadNoteToS3 } from "@/lib/s3";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -32,38 +31,20 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        error: "Failed to upload file",
+        error: "Failed to upload file to local file system.",
         message: error,
       },
       { status: 400 }
     );
   }
 
-  if (file.type.includes("image/")) {
-    const systemPrompt = process.env.GROK_SYSTEM_PROMPT;
-    const userPrompt = process.env.GROK_USER_PROMPT || "";
+  await uploadNoteToS3(filename, filePath);
+  const fileUrl = await getNoteFromS3(filename, 60);
 
+  // Image File
+  if (file.type.includes("image/")) {
     try {
-      const { text } = await generateText({
-        model: xai("grok-vision-beta"),
-        system: systemPrompt,
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: userPrompt,
-              },
-              {
-                type: "image",
-                image: fs.readFileSync(filePath),
-                mimeType: file.type,
-              },
-            ],
-          },
-        ],
-      });
+      const text = await generateQuizFromImage(fileUrl, file.type);
 
       return NextResponse.json({ text }, { status: 200 });
     } catch (error) {
@@ -77,78 +58,34 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const systemPrompt = process.env.CLAUDE_SYSTEM_PROMPT;
-  const userPrompt = process.env.CLAUDE_USER_PROMPT || "";
+  // // Word Doc File
+  // const wordDocType =
+  //   "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  // if (file.type.includes(wordDocType)) {
+  //   try {
+  //     const quiz = await generateQuizFromWordDoc(filePath);
 
-  if (
-    file.type.includes(
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    )
-  ) {
-    const { value: wordDocHtml } = await mammoth.convertToHtml({
-      path: filePath,
-    });
+  //     return NextResponse.json(
+  //       { text: quiz.text, usage: quiz.usage },
+  //       { status: 200 }
+  //     );
+  //   } catch (error) {
+  //     return NextResponse.json(
+  //       {
+  //         error: "Claude failed to process file",
+  //         message: error,
+  //       },
+  //       { status: 400 }
+  //     );
+  //   }
+  // }
 
-    try {
-      const result = await generateText({
-        model: anthropic("claude-3-5-sonnet-20241022"),
-        system: systemPrompt,
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: userPrompt,
-              },
-              {
-                type: "text",
-                text: wordDocHtml,
-              },
-            ],
-          },
-        ],
-      });
-
-      return NextResponse.json(
-        { text: result.text, usage: result.usage },
-        { status: 200 }
-      );
-    } catch (error) {
-      return NextResponse.json(
-        {
-          error: "Claude failed to process file",
-          message: error,
-        },
-        { status: 400 }
-      );
-    }
-  }
-
+  // PDF File [Default]
   try {
-    const result = await generateText({
-      model: anthropic("claude-3-5-sonnet-20241022"),
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: userPrompt,
-            },
-            {
-              type: "file",
-              data: fs.readFileSync(filePath),
-              mimeType: "application/pdf",
-            },
-          ],
-        },
-      ],
-    });
+    const quiz = await generateQuizFromPDF(fileUrl);
 
     return NextResponse.json(
-      { text: result.text, usage: result.usage },
+      { text: quiz.text, usage: quiz.usage },
       { status: 200 }
     );
   } catch (error) {
