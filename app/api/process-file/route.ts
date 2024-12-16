@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import { generateQuizFromPDF, generateQuizFromWordDoc } from "@/lib/anthropic";
 import { generateQuizFromImage } from "@/lib/xai";
-import { getNoteFromS3, uploadNoteToS3 } from "@/lib/s3";
+import { uploadNoteToS3 } from "@/lib/s3";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -38,14 +38,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  await uploadNoteToS3(filename, filePath);
-  const fileUrl = await getNoteFromS3(filename, 60);
-
   // Image File
   if (file.type.includes("image/")) {
     try {
-      const text = await generateQuizFromImage(fileUrl, file.type);
+      const text = await generateQuizFromImage(filePath, file.type);
 
+      // Upload image file to S3 bucket & delete from local file storage
+      await uploadNoteToS3(filename, filePath);
       return NextResponse.json({ text }, { status: 200 });
     } catch (error) {
       return NextResponse.json(
@@ -58,32 +57,36 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // // Word Doc File
-  // const wordDocType =
-  //   "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-  // if (file.type.includes(wordDocType)) {
-  //   try {
-  //     const quiz = await generateQuizFromWordDoc(filePath);
+  // Word Doc File
+  const wordDocType =
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  if (file.type.includes(wordDocType)) {
+    try {
+      const quiz = await generateQuizFromWordDoc(filePath);
 
-  //     return NextResponse.json(
-  //       { text: quiz.text, usage: quiz.usage },
-  //       { status: 200 }
-  //     );
-  //   } catch (error) {
-  //     return NextResponse.json(
-  //       {
-  //         error: "Claude failed to process file",
-  //         message: error,
-  //       },
-  //       { status: 400 }
-  //     );
-  //   }
-  // }
+      // Upload Word Doc file to S3 bucket & delete from local file storage
+      await uploadNoteToS3(filename, filePath);
+      return NextResponse.json(
+        { text: quiz.text, usage: quiz.usage },
+        { status: 200 }
+      );
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: "Claude failed to process file",
+          message: error,
+        },
+        { status: 400 }
+      );
+    }
+  }
 
   // PDF File [Default]
   try {
-    const quiz = await generateQuizFromPDF(fileUrl);
+    const quiz = await generateQuizFromPDF(filePath);
 
+    // Upload PDF file to S3 bucket & delete from local file storage
+    await uploadNoteToS3(filename, filePath);
     return NextResponse.json(
       { text: quiz.text, usage: quiz.usage },
       { status: 200 }

@@ -71,15 +71,6 @@ export const uploadNoteToS3 = async (fileName: string, filePath: string) => {
         });
       }
     });
-
-    // DELETE
-    const metadata = await s3Client.send(
-      new HeadObjectCommand({
-        Bucket: bucketName,
-        Key: `${folders.notes}/${fileName}`,
-      })
-    );
-    console.log("MIME TYPE FROM S3:", metadata.ContentType);
   } catch (error) {
     console.error(error);
     throw error;

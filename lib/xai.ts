@@ -1,5 +1,6 @@
 import { createXai } from "@ai-sdk/xai";
 import { generateText } from "ai";
+import fs from "fs";
 
 const systemPrompt = process.env.GROK_SYSTEM_PROMPT;
 const userPrompt = process.env.GROK_USER_PROMPT || "";
@@ -9,7 +10,7 @@ export const xai = createXai({
 });
 
 export const generateQuizFromImage = async (
-  fileUrl: string,
+  filePath: string,
   fileType: string
 ) => {
   try {
@@ -26,7 +27,7 @@ export const generateQuizFromImage = async (
             },
             {
               type: "image",
-              image: fileUrl,
+              image: fs.readFileSync(filePath),
               mimeType: fileType,
             },
           ],
