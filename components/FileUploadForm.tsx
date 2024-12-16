@@ -5,6 +5,7 @@ import Btn01 from "./kokonutui/btn-01";
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import MorphingText from "./eldoraui/morphingtext";
 
 export default function FileUploadForm() {
   const [file, setFile] = useState<File | null>(null);
@@ -35,12 +36,29 @@ export default function FileUploadForm() {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="flex flex-col items-center gap-4 w-1/3"
+      className="flex flex-col items-center gap-4 w-2/3"
     >
-      <Input_03 setFile={setFile} />
-      <Btn01 className="w-full" isLoading={isLoading}>
-        Create Quiz
-      </Btn01>
+      <div className="flex flex-col gap-4 w-2/3 items-center">
+        <Input_03 setFile={setFile} />
+        <Btn01 className="grow" isLoading={isLoading}>
+          Create Quiz
+        </Btn01>
+      </div>
+      {isLoading && (
+        <div className="w-full pt-20">
+          <MorphingText
+            texts={[
+              "Processing File",
+              "Extracting Text",
+              "Injesting Context",
+              "Analyzing Notes",
+              "Preparing Questions",
+              "Learning Content",
+              "Writing Phrases",
+            ]}
+          />
+        </div>
+      )}
     </form>
   );
 }

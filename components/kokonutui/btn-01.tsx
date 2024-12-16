@@ -36,7 +36,7 @@ export default function Btn01({
       >
         <span>{children}</span>
         {isLoading ? (
-          <span className="loader"></span>
+          <span className="button-loader"></span>
         ) : (
           <ArrowRight
             className={cn(
