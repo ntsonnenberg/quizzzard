@@ -2,12 +2,20 @@ import QuizForm from "@/components/QuizForm";
 
 interface Props {
   searchParams: {
-    [key: string]: string;
+    [key: string]: string | undefined;
   };
 }
 
 export default async function Quiz({ searchParams }: Props) {
-  const response = (await searchParams.response) || "No response sent.";
+  const { response } = await searchParams;
+
+  if (!response) {
+    return (
+      <div className="flex flex-col justify-center my-20 mx-10">
+        No Response from LLM
+      </div>
+    );
+  }
 
   const stringQuestions = response
     .replace("\\n", "")

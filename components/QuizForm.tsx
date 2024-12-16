@@ -14,8 +14,6 @@ export default function QuizForm({ jsonQuestions }: Props) {
     useState<Question[]>(jsonQuestions);
   const [results, setResults] = useState<QuestionResult[]>([]);
 
-  console.log("QUESTION ANSWERS:", questionAnswers);
-
   const checkAnswers = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -52,8 +50,6 @@ export default function QuizForm({ jsonQuestions }: Props) {
       setResults((prev) => [...prev, { questionNumber, result }]);
     });
   };
-
-  console.log("RESULTS:", results);
 
   return (
     <form onSubmit={checkAnswers}>
