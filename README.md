@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quizzzard
 
-## Getting Started
+This project is an AI application where students can upload their notes from class and Quizzard will generate a quiz to test them on their material to quickly prepare them for course exams. Image files can be uploaded to generate quizzes using xAI's Grok Vision Beta LLM. PDF or Word Doc files can also be uploaded to generate quizzes using Anthropic's Claude Sonnet LLM.
 
-First, run the development server:
+## Authors
+
+- [@ntsonnenberg](https://github.com/ntsonnenberg)
+
+## Tech Stack
+
+**Client:** Next.js, React, TailwindCSS
+
+**Deployment:** Vercel, AWS S3
+
+## Installation
+
+Install Porfolio with npm
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/ntsonnenberg/quizzard.git
+  cd quizzard
+  npm install
+  npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Node Packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **_@ai-sdk/anthropic_** v1.0.2
+- **_@ai-sdk/xai_** v1.0.6
+- **_@aws-sdk/client-s3_** v3.172.0
+- **_@aws-sdk/s3-request-presigner_** v3.172.0
+- **_@radix-ui/react-slot_** v1.1.1
+- **_ai_** v4.0.7
+- **_axios_** v1.7.8
+- **_class-variance-authority_** v0.7.0
+- **_clsx_** v2.1.1
+- **_lucide-react_** v0.460.0
+- **_mammoth_** v1.8.0
+- **_mime_** v4.0.4
+- **_next_** 15.0.3
+- **_react_** 19.0.0-rc-66855b96-20241106
+- **_react-dom_** 19.0.0-rc-66855b96-20241106
+- **_react-icons_** v5.3.0
+- **_tailwind-merge_** v2.5.5
+- **_tailwindcss-animate_** v1.0.7
 
-## Learn More
+Dev Dependencies
 
-To learn more about Next.js, take a look at the following resources:
+- **_@types/formidable_** v3.4.5
+- **_@types/node_** v20
+- **_@types/react_** v18
+- **_@types/react-dom_** v18
+- **_eslint_** v8
+- **_eslint-config-next_** v15.0.3
+- **_formidable_** v3.5.2
+- **_postcss_** v8
+- **_tailwindcss_** v3.4.1
+- **_typescript_** v5
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run this project, you will need to add the following environment variables to your .env.development file
 
-## Deploy on Vercel
+`BASE_URL`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Anthropic
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`ANTHROPIC_API_KEY`
+
+`CLAUDE_SYSTEM_PROMPT`
+
+`CLAUDE_USER_PROMPT`
+
+xAI
+
+`XAI_API_KEY`
+
+`GROK_SYSTEM_PROMPT`
+
+`GROK_USER_PROMPT`
+
+AWS
+
+`AWS_BUCKET_NAME`
+
+`AWS_ACCESS_KEY_ID`
+
+`AWS_SECRET_ACCESS_KEY`
+
+`AWS_REGION`
+
+## Roadmap
+
+- Extract text from PDF files to reduce token usage with Anthropic
+
+- Configure prompt chaining to upload textbook pages to convert to notes and then convert to quiz questions
+
+- Configure Authentication and user account creation
+
+## Feedback
+
+If you have any feedback, please reach out to me at ntsonnenberg@gmail.com
