@@ -3,8 +3,20 @@ import { generateText } from "ai";
 import mammoth from "mammoth";
 import fs from "fs";
 
+/**
+ * --------------------------------------------------------
+ *                      PRIVATE CONSTANTS
+ * --------------------------------------------------------
+ */
+
 const systemPrompt = process.env.CLAUDE_SYSTEM_PROMPT;
 const userPrompt = process.env.CLAUDE_USER_PROMPT || "";
+
+/**
+ * --------------------------------------------------------
+ *                      PUBLIC CONSTANTS
+ * --------------------------------------------------------
+ */
 
 export const anthropic = createAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -20,13 +32,13 @@ export const generateQuizFromPDF = async (filePath: string) => {
           role: "user",
           content: [
             {
-              type: "text",
-              text: userPrompt,
-            },
-            {
               type: "file",
               data: fs.readFileSync(filePath),
               mimeType: "application/pdf",
+            },
+            {
+              type: "text",
+              text: userPrompt,
             },
           ],
         },
