@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
-import { generateQuizFromPDF, generateQuizFromWordDoc } from "@/lib/anthropic";
-import { generateQuizFromImage } from "@/lib/xai";
 import { uploadNoteToS3 } from "@/lib/s3";
+import { generateQuiz } from "@/lib/google";
 
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
@@ -38,52 +37,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Image File
-  if (file.type.includes("image/")) {
-    try {
-      const text = await generateQuizFromImage(filePath, file.type);
-
-      // Upload image file to S3 bucket & delete from local file storage
-      await uploadNoteToS3(filename, filePath);
-      return NextResponse.json({ text }, { status: 200 });
-    } catch (error) {
-      return NextResponse.json(
-        {
-          error: "Grok failed to process file",
-          message: error,
-        },
-        { status: 400 }
-      );
-    }
-  }
-
-  // Word Doc File
-  const wordDocType =
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-  if (file.type.includes(wordDocType)) {
-    try {
-      const quiz = await generateQuizFromWordDoc(filePath);
-
-      // Upload Word Doc file to S3 bucket & delete from local file storage
-      await uploadNoteToS3(filename, filePath);
-      return NextResponse.json(
-        { text: quiz.text, usage: quiz.usage },
-        { status: 200 }
-      );
-    } catch (error) {
-      return NextResponse.json(
-        {
-          error: "Claude failed to process file",
-          message: error,
-        },
-        { status: 400 }
-      );
-    }
-  }
-
-  // PDF File [Default]
   try {
-    const quiz = await generateQuizFromPDF(filePath);
+    const quiz = await generateQuiz(filePath, file.type);
 
     // Upload PDF file to S3 bucket & delete from local file storage
     await uploadNoteToS3(filename, filePath);
