@@ -50,11 +50,11 @@ export default function Btn10({
     const variants = {
         pill: [
             "rounded-full",
-            "bg-gradient-to-b from-white to-zinc-50",
+            "bg-linear-to-b from-white to-zinc-50",
             "dark:from-zinc-900 dark:to-zinc-800",
             "border border-zinc-200 dark:border-zinc-800",
             "hover:border-zinc-300 dark:hover:border-zinc-700",
-            "shadow-sm",
+            "shadow-xs",
         ],
         minimal: [
             "rounded-lg",
@@ -107,7 +107,7 @@ export default function Btn10({
             <span
                 className={cn(
                     "absolute inset-0",
-                    "bg-gradient-to-r from-zinc-500/0 via-zinc-500/10 to-zinc-500/0",
+                    "bg-linear-to-r from-zinc-500/0 via-zinc-500/10 to-zinc-500/0",
                     "translate-x-[-50%]",
                     "group-hover:translate-x-[50%]",
                     "transition-transform duration-500",
