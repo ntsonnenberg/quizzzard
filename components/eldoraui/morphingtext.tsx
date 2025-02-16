@@ -145,7 +145,7 @@ export default function MorphingText({ texts, className }: Props) {
   return (
     <div
       className={cn(
-        "relative mx-auto h-16 w-full max-w-screen-md text-center font-sans text-[40pt] font-bold leading-none [filter:url(#threshold)_blur(0.6px)] md:h-24 lg:text-[6rem]",
+        "relative mx-auto h-16 w-full max-w-(--breakpoint-md) text-center font-sans text-[40pt] font-bold leading-none [filter:url(#threshold)_blur(0.6px)] md:h-24 lg:text-[6rem]",
         className
       )}
     >
