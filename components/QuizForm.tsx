@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Question, QuestionResult } from "./QuizQuestion";
 import QuizQuestion from "./QuizQuestion";
-import Btn01 from "./kokonutui/btn-01";
 
 interface Props {
   jsonQuestions: Question[];
@@ -63,7 +62,9 @@ export default function QuizForm({ jsonQuestions }: Props) {
           />
         ))}
       <div className="flex justify-center mt-10">
-        <Btn01>Check Answers</Btn01>
+        <button className="primary filled py-2 px-4 rounded-lg">
+          Check Answers
+        </button>
       </div>
     </form>
   );

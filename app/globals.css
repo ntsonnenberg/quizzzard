@@ -1,25 +1,27 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark], *));
 
 @theme {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  --color-primary: var(--primary);
+  --color-primary-variant: var(--primary-variant);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-variant: var(--secondary-variant);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
 
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
 
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
@@ -62,18 +64,21 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --primary: #40916C;
+    --primary-variant: #52B788;
+    --primary-foreground: #D8F3DC;
+    --background: #ffff;
+    --foreground: #3d3d3d;
+    --text: #40916C;
+    --secondary: #0096C7;
+    --secondary-variant: #48CAE4;
+    --secondary-foreground: #CAF0F8;
+    --muted: #4e4e4e;
+    --muted-foreground: #b2b1b1;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
@@ -88,19 +93,23 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --primary: #52B788;
+    --primary-variant: #2D6A4F;
+    --primary-foreground: #1B4332;
+    --background: #081C15;
+    --foreground: #c0c0c0;
+    --text: #52B788;
+    --secondary: #48CAE4;
+    --secondary-variant: #0096C7;
+    --secondary-foreground: #023E8A;
+    --muted: #000000;
+    --muted-foreground: #5e5e5e;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
@@ -115,12 +124,33 @@
     --chart-5: 340 75% 55%
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  button, a {
+    @apply cursor-pointer;
+  }
+
+  button.primary.filled {
+    @apply bg-primary text-primary-foreground outline outline-primary hover:bg-primary-variant
+  }
+
+  button.primary.outlined {
+    @apply bg-transparent text-primary border border-primary;
+  }
+
+  a.primary {
+    @apply text-primary hover:text-primary-variant;
+  }
+
+  a.secondary {
+    @apply text-secondary hover:text-secondary-variant;
   }
 }
 

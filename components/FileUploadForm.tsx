@@ -1,7 +1,6 @@
 "use client";
 
 import Input_03 from "./kokonutui/input-03";
-import Btn01 from "./kokonutui/btn-01";
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -40,9 +39,9 @@ export default function FileUploadForm() {
     >
       <div className="flex flex-col gap-4 w-2/3 items-center">
         <Input_03 setFile={setFile} />
-        <Btn01 className="grow" isLoading={isLoading}>
-          Create Quiz
-        </Btn01>
+        <button className="primary filled py-2 mt-6 rounded-lg px-4">
+          Create Quiz {isLoading && <span className="button-loader"></span>}
+        </button>
       </div>
       {isLoading && (
         <div className="w-full pt-20">
