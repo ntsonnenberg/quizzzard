@@ -82,7 +82,7 @@ export default function Input_03({ setFile }: Props) {
 
   return (
     <div className="w-full max-w-md space-y-2">
-      <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+      <label className="text-sm font-medium text-muted-foreground">
         Upload file (Images, PDFs, Word Docs)
       </label>
       <div
@@ -92,7 +92,7 @@ export default function Input_03({ setFile }: Props) {
           "transition-colors duration-200",
           isDragging
             ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10"
-            : "border-zinc-200 dark:border-zinc-800"
+            : "border-muted-foreground"
         )}
         onDragOver={(e) => {
           e.preventDefault();
@@ -121,8 +121,8 @@ export default function Input_03({ setFile }: Props) {
         <div className="p-8 space-y-4">
           {!fileName ? (
             <div className="flex flex-col items-center gap-2">
-              <Upload className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              <Upload className="w-8 h-8 text-muted-foreground" />
+              <p className="text-sm text-muted-foreground">
                 Drag and drop or click to upload
               </p>
             </div>
@@ -139,8 +139,8 @@ export default function Input_03({ setFile }: Props) {
                   />
                 </div>
               ) : (
-                <div className="w-16 h-16 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                  <FileText className="w-8 h-8 text-zinc-400" />
+                <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">
+                  <FileText className="w-8 h-8 text-muted-foreground" />
                 </div>
               )}
               <div className="flex-1 min-w-0">
@@ -153,9 +153,9 @@ export default function Input_03({ setFile }: Props) {
                     : "0 MB"}
                 </p>
                 {uploadProgress < 100 && (
-                  <div className="mt-2 h-1 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div className="mt-2 h-1 w-full bg-muted-foreground rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-indigo-500 transition-all duration-200"
+                      className="h-full bg-secondary-variant transition-all duration-200"
                       style={{
                         width: `${uploadProgress}%`,
                       }}
@@ -169,9 +169,9 @@ export default function Input_03({ setFile }: Props) {
                   e.stopPropagation();
                   removeFile();
                 }}
-                className="p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded"
+                className="p-1 hover:bg-muted rounded"
               >
-                <X className="w-5 h-5 text-zinc-400" />
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
           )}

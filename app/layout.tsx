@@ -16,8 +16,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Quizzard",
-  description: "Your AI tool to test your knowledge.",
+  title: "Quizzard AI",
+  description:
+    "Your personalized AI agent to help you prepare and ace your exams.",
 };
 
 axios.defaults.baseURL = process.env.BASE_URL;
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
