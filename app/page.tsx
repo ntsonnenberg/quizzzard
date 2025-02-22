@@ -18,7 +18,7 @@ type SearchParamProps = {
 };
 
 export default async function Home({ searchParams }: SearchParamProps) {
-  const { show } = await searchParams;
+  const show = (await searchParams)?.show;
 
   const emailModal = (
     <Modal>
