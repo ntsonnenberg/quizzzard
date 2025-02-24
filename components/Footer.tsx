@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -6,10 +7,12 @@ export default function Footer() {
       <div className="px-6 mx-auto sm:px-8 lg:px-12 max-w-7xl">
         <div className="grid items-center grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
           <div className="md:order-1">
-            <img
+            <Image
               className="w-auto h-8"
               src="https://cdn.rareblocks.xyz/collection/bakerstreet/images/logo.svg"
               alt=""
+              width={100}
+              height={10}
             />
           </div>
           <div className="md:order-3">
