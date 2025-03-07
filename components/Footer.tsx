@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -6,16 +5,8 @@ export default function Footer() {
     <footer className="py-12 sm:py-16 bg-primary-foreground">
       <div className="px-6 mx-auto sm:px-8 lg:px-12 max-w-7xl">
         <div className="grid items-center grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
-          <div className="md:order-1">
-            <Image
-              className="w-auto h-8"
-              src="https://cdn.rareblocks.xyz/collection/bakerstreet/images/logo.svg"
-              alt=""
-              width={100}
-              height={10}
-            />
-          </div>
-          <div className="md:order-3">
+          <div className="md:order-1 text-4xl font-bold">Quizzzard</div>
+          {/* <div className="md:order-3">
             <ul className="flex items-center justify-end space-x-6">
               <li>
                 <Link
@@ -78,7 +69,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           <div className="col-span-2 md:col-span-1 md:order-2">
             <ul className="flex items-center justify-center sm:justify-between md:justify-center space-x-9 lg:space-x-16">

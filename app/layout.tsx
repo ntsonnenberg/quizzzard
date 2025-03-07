@@ -4,6 +4,9 @@ import "./globals.css";
 import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import flagsmith from "flagsmith/isomorphic";
+import FlagProvider from "@/providers/FlagProvider";
+import { getTemporaryToken } from "@/lib/cookies";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,19 +27,31 @@ export const metadata: Metadata = {
 
 axios.defaults.baseURL = process.env.BASE_URL;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const identity = (await getTemporaryToken())?.value || "";
+  const environmentID = process.env.FLAGSMITH_API_KEY || "";
+
+  const flagsmithState = await flagsmith
+    .init({
+      environmentID,
+      identity,
+    })
+    .then(() => flagsmith.getState());
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <FlagProvider flagsmithState={flagsmithState}>
+          <Navbar />
+          <div className="mt-40">{children}</div>
+          <Footer />
+        </FlagProvider>
       </body>
     </html>
   );

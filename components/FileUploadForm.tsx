@@ -39,7 +39,7 @@ export default function FileUploadForm() {
     >
       <div className="flex flex-col gap-4 w-2/3 items-center">
         <Input_03 setFile={setFile} />
-        <button className="primary filled py-2 mt-6 rounded-lg px-4">
+        <button className="primary filled py-2 mt-6 rounded-lg px-4 flex gap-2 items-center">
           Create Quiz {isLoading && <span className="button-loader"></span>}
         </button>
       </div>

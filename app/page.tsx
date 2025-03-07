@@ -10,14 +10,14 @@ import StatsFeature from "@/components/Landing/StatsFeature";
 import EmailIntakeModal from "@/components/EmailIntakeModal";
 
 type SearchParamProps = {
-  searchParams: Record<string, string> | null | undefined;
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const show = (await searchParams)?.show;
 
   return (
-    <div>
+    <main>
       {show && <EmailIntakeModal />}
       <Hero />
       <CTAEmail />
@@ -28,6 +28,6 @@ export default async function Home({ searchParams }: SearchParamProps) {
       <About />
       <Pricing />
       <ContactUs />
-    </div>
+    </main>
   );
 }

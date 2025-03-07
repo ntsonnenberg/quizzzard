@@ -11,7 +11,7 @@ export default function Modal({ children }: Props) {
         animate={{ translateY: 20 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         whileInView={{ opacity: 1 }}
-        className="opacity-0 p-4 border w-96 shadow-lg rounded-md bg-white"
+        className="opacity-0 p-4 border w-96 shadow-lg rounded-md bg-background"
       >
         {children}
       </motion.div>

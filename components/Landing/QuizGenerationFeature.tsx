@@ -1,6 +1,7 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import Link from "next/link";
+import { hasAccess } from "@/lib/cookies";
 
 export default function QuizGenerationFeature() {
   return (
@@ -42,7 +43,7 @@ export default function QuizGenerationFeature() {
                 className="opacity-0 mt-8"
               >
                 <Link
-                  href="/?show=true"
+                  href={hasAccess ? "/agent" : "/?show=true"}
                   title="Start using Quizzzard"
                   className="bg-primary text-primary-foreground inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-all duration-200 rounded-full shadow-sm hover:shadow-lg"
                 >
@@ -55,8 +56,8 @@ export default function QuizGenerationFeature() {
               <p className="text-base font-normal leading-7 text-muted-foreground xl:pr-24">
                 “Quizzzard has helped me a ton with my study habits. It has
                 become an integral part of my learning and test prep process.
-                I've been able to learn my course material in a significantly
-                shorter time period!”
+                I&apos;ve been able to learn my course material in a
+                significantly shorter time period!”
               </p>
               <p className="mt-3 text-base font-semibold">Nate Sonnenberg</p>
             </div>

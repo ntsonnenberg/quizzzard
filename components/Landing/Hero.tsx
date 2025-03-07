@@ -1,12 +1,13 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import * as motion from "motion/react-client";
+import { hasAccess } from "@/lib/cookies";
 
-export default function Hero() {
+export default async function Hero() {
   return (
-    <div className="">
-      <section className="py-40 sm:pb-16 lg:pb-20 xl:pb-24">
+    <div>
+      <section className="pb-40 sm:pb-16 lg:pb-20 xl:pb-24">
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="relative">
             <div className="lg:w-2/3">
@@ -27,8 +28,8 @@ export default function Hero() {
                 whileInView={{ opacity: 1 }}
                 className="opacity-0 max-w-lg mt-4 text-xl font-normal text-muted-foreground sm:mt-8"
               >
-                Personalized AI quizzes based on your notes. From notes to A's,
-                let Quizzzard AI transform your study sessions.
+                Personalized AI quizzes based from notes. From notes to
+                A&apos;s, let Quizzzard AI transform your study sessions.
               </motion.p>
               <motion.div
                 animate={{ translateY: 20 }}
@@ -38,7 +39,7 @@ export default function Hero() {
               >
                 <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-secondary-variant to-primary-variant group-hover:shadow-lg group-hover:shadow-cyan-500/50"></div>
                 <Link
-                  href="/?show=true"
+                  href={(await hasAccess()) ? "/agent" : "/?show=true"}
                   title=""
                   className="relative inline-flex items-center justify-center px-8 py-3 text-base font-normal text-white bg-muted border border-transparent rounded-full"
                   role="button"
@@ -92,23 +93,20 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 md:absolute md:mt-0 md:top-32 lg:top-0 md:right-0">
+            <div className="mt-8 md:absolute md:mt-0 md:top-32 lg:-top-24 md:right-20">
               {/* <Image
-                className="w-full max-w-xs mx-auto lg:max-w-lg xl:max-w-xl"
-                src="https://landingfoliocom.imgix.net/store/collection/dusk/images/hero/1/3d-illustration.png"
-                alt=""
-                width={500}
-                height={500}
-              /> */}
-              <Image
-                src="/images/ai-blob-2.gif"
+                src="/images/liquid-blob-square.gif"
                 alt="AI Blob"
-                width={600}
-                height={600}
-              />
-              {/* <video width={500} height={500} loop muted autoPlay>
-                <source src="/images/ai-blob-2.mp4" type="video/mp4" />
-              </video> */}
+                width={300}
+                height={300}
+              /> */}
+              <video width="250" height="250" loop autoPlay muted>
+                <source
+                  src="https://4iled4maq7lo2rwu.public.blob.vercel-storage.com/blue-liquid-blob-cDwyEXQeDA06fNGfGtdufHIlm1C3iD.webm"
+                  type="video/webm"
+                />
+                your browser doesnt support video tag
+              </video>
             </div>
           </div>
         </div>

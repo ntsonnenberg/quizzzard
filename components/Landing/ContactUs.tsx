@@ -1,3 +1,5 @@
+import ContactUsForm from "../ContactUsForm";
+
 export default function ContactUs() {
   return (
     <section className="py-12 mb-40 overflow-hidden sm:py-16 lg:py-20 xl:py-24">
@@ -62,79 +64,7 @@ export default function ContactUs() {
                   Reach out to us and give us feedback on how we can improve
                   Quizzzard.
                 </p>
-                <form action="#" method="POST" className="mt-8 space-y-4">
-                  <div>
-                    <label htmlFor="" className="sr-only">
-                      {" "}
-                      Full name{" "}
-                    </label>
-                    <div>
-                      <input
-                        type="text"
-                        name=""
-                        id=""
-                        placeholder="First & Last name"
-                        className="block w-full px-5 py-4 text-white placeholder-muted-foreground bg-muted rounded-md focus:ring-1 focus:ring-primary focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="" className="sr-only">
-                      {" "}
-                      Email address{" "}
-                    </label>
-                    <div>
-                      <input
-                        type="email"
-                        name=""
-                        id=""
-                        placeholder="Email address"
-                        className="block w-full px-5 py-4 text-white placeholder-muted-foreground bg-muted rounded-md focus:ring-1 focus:ring-primary focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="" className="sr-only">
-                      Phone number
-                    </label>
-                    <div>
-                      <input
-                        type="tel"
-                        name=""
-                        id=""
-                        placeholder="Phone number"
-                        className="block w-full px-5 py-4 text-white placeholder-muted-foreground bg-muted rounded-md focus:ring-1 focus:ring-primary focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="" className="sr-only">
-                      {" "}
-                      Message{" "}
-                    </label>
-                    <div>
-                      <textarea
-                        name=""
-                        id=""
-                        placeholder="Write your message"
-                        rows={4}
-                        className="block w-full px-5 py-4 text-white placeholder-muted-foreground bg-muted rounded-md resize-y focus:ring-1 focus:ring-primary focus:outline-none"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="relative inline-flex mt-2 group">
-                      <div className="absolute transition-all duration-200 rounded-md -inset-px bg-gradient-to-r from-secondary-variant to-primary-variant group-hover:shadow-lg group-hover:shadow-secondary-variant"></div>
-                      <button
-                        type="button"
-                        className="relative inline-flex items-center justify-center px-8 py-3 text-base font-normal text-white bg-muted border border-transparent rounded-md"
-                        role="button"
-                      >
-                        Send Message
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                <ContactUsForm />
               </div>
             </div>
           </div>
