@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import flagsmith from "flagsmith/isomorphic";
 import FlagProvider from "@/providers/FlagProvider";
-import { getTemporaryToken } from "@/lib/cookies";
+import { cookies } from "next/headers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +32,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const identity = (await getTemporaryToken())?.value || "";
+  const identity = (await cookies()).get("temporary_token")?.value || "";
   const environmentID = process.env.FLAGSMITH_API_KEY || "";
 
   const flagsmithState = await flagsmith

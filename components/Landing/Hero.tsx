@@ -1,10 +1,11 @@
-// import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import * as motion from "motion/react-client";
-import { hasAccess } from "@/lib/cookies";
+import { cookies } from "next/headers";
 
 export default async function Hero() {
+  const hasAccess = (await cookies()).has("temporary_token");
+
   return (
     <div>
       <section className="pb-40 sm:pb-16 lg:pb-20 xl:pb-24">
@@ -39,7 +40,7 @@ export default async function Hero() {
               >
                 <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-secondary-variant to-primary-variant group-hover:shadow-lg group-hover:shadow-cyan-500/50"></div>
                 <Link
-                  href={(await hasAccess()) ? "/agent" : "/?show=true"}
+                  href={hasAccess ? "/agent" : "/?show=true"}
                   title=""
                   className="relative inline-flex items-center justify-center px-8 py-3 text-base font-normal text-white bg-muted border border-transparent rounded-full"
                   role="button"

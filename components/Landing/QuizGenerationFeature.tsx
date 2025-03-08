@@ -1,9 +1,10 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import Link from "next/link";
-import { hasAccess } from "@/lib/cookies";
+import { cookies } from "next/headers";
+export default async function QuizGenerationFeature() {
+  const hasAccess = (await cookies()).has("temporary_token");
 
-export default function QuizGenerationFeature() {
   return (
     <section id="features" className="mt-20 mb-40 sm:py-16 lg:py-20 xl:py-24">
       <div className="mt-20 px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">

@@ -59,38 +59,6 @@ Dev Dependencies
 - **_tailwindcss_** v3.4.1
 - **_typescript_** v5
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env.development file
-
-`BASE_URL`
-
-Anthropic
-
-`ANTHROPIC_API_KEY`
-
-`CLAUDE_SYSTEM_PROMPT`
-
-`CLAUDE_USER_PROMPT`
-
-xAI
-
-`XAI_API_KEY`
-
-`GROK_SYSTEM_PROMPT`
-
-`GROK_USER_PROMPT`
-
-AWS
-
-`AWS_BUCKET_NAME`
-
-`AWS_ACCESS_KEY_ID`
-
-`AWS_SECRET_ACCESS_KEY`
-
-`AWS_REGION`
-
 ## Roadmap
 
 - Extract text from PDF files to reduce token usage with Anthropic
@@ -101,4 +69,4 @@ AWS
 
 ## Feedback
 
-If you have any feedback, please reach out to me at ntsonnenberg@gmail.com
+If you have any feedback, please reach out to me at nsonnenberg@bespokecode.io

@@ -1,6 +1,6 @@
 "use server";
 
-import { setTemporaryToken } from "@/lib/cookies";
+import { cookies } from "next/headers";
 import {
   addOrUpdateContactToFeedbackList,
   addOrUpdateContactToProductUpdatesList,
@@ -27,6 +27,11 @@ const isCustomError = (error: any) => {
   );
 };
 
+const setTemporaryToken = async (id: string): Promise<void> => {
+  const cookieStore = await cookies();
+  await cookieStore.set("temporary_token", id);
+};
+
 /**
  * --------------------------------------------------------
  *                      PUBLIC METHODS
@@ -46,10 +51,13 @@ export const addEmail = async (
   try {
     const validData = validateEmailIntakeForm(formData);
 
-    const contactProperties = validData.fullName && {
-      firstName: validData.fullName.split(" ")[0],
-      lastName: validData.fullName.split(" ").pop() || "",
-    };
+    const contactProperties = validData.fullName
+      ? {
+          firstName: validData.fullName.split(" ")[0],
+          lastName: validData.fullName.split(" ").pop() || "",
+        }
+      : undefined;
+
     const contactId = await addOrUpdateContactToProductUpdatesList(
       validData.email,
       contactProperties

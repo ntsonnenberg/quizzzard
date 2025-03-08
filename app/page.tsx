@@ -9,16 +9,18 @@ import RoadmapFeature from "@/components/Landing/RoadmapFeature";
 import StatsFeature from "@/components/Landing/StatsFeature";
 import EmailIntakeModal from "@/components/EmailIntakeModal";
 
-type SearchParamProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-export default async function Home({ searchParams }: SearchParamProps) {
-  const show = (await searchParams)?.show;
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: SearchParams;
+}) {
+  const params = await searchParams;
 
   return (
     <main>
-      {show && <EmailIntakeModal />}
+      {params?.show && <EmailIntakeModal />}
       <Hero />
       <CTAEmail />
       <QuizGenerationFeature />

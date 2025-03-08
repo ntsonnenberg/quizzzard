@@ -29,14 +29,14 @@ interface ContactResponse {
 }
 
 interface ContactProperties {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   [key: string]: any;
 }
 
 export const addOrUpdateContactToProductUpdatesList = async (
   email: string,
-  properties?: ContactProperties
+  properties: ContactProperties = {}
 ): Promise<string> => {
   let contactId;
 
