@@ -1,6 +1,5 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText } from "ai";
-import fs from "fs";
 import mammoth from "mammoth";
 
 /**
@@ -86,23 +85,23 @@ const google = createGoogleGenerativeAI({
  * --------------------------------------------------------
  */
 
-export const generateQuiz = async (filePath: string, fileType: string) => {
+export const generateQuiz = async (buffer: ArrayBuffer, fileType: string) => {
   try {
     if (
       fileType ===
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ) {
-      const response = await sendWordDoc(filePath);
+      const response = await sendWordDoc(buffer);
       return response;
     }
 
     if (fileType.includes("image/")) {
-      const response = await sendImage(filePath, fileType);
+      const response = await sendImage(buffer, fileType);
       return response;
     }
 
     if (fileType === "application/pdf") {
-      const response = await sendPDF(filePath);
+      const response = await sendPDF(buffer);
       return response;
     }
 
@@ -118,9 +117,9 @@ export const generateQuiz = async (filePath: string, fileType: string) => {
  *                      PRIVATE METHODS
  * --------------------------------------------------------
  */
-const sendWordDoc = async (filePath: string) => {
+const sendWordDoc = async (buffer: ArrayBuffer) => {
   const { value: wordDocHtml } = await mammoth.convertToHtml({
-    path: filePath,
+    buffer: Buffer.from(buffer),
   });
 
   const result = await generateText({
@@ -146,7 +145,7 @@ const sendWordDoc = async (filePath: string) => {
   return result;
 };
 
-const sendImage = async (filePath: string, fileType: string) => {
+const sendImage = async (buffer: ArrayBuffer, fileType: string) => {
   const result = await generateText({
     model: google("gemini-1.5-pro-latest"),
     system: systemPrompt,
@@ -156,7 +155,7 @@ const sendImage = async (filePath: string, fileType: string) => {
         content: [
           {
             type: "image",
-            image: fs.readFileSync(filePath),
+            image: buffer,
             mimeType: fileType,
           },
           {
@@ -171,7 +170,7 @@ const sendImage = async (filePath: string, fileType: string) => {
   return result;
 };
 
-const sendPDF = async (filePath: string) => {
+const sendPDF = async (buffer: ArrayBuffer) => {
   const result = await generateText({
     model: google("gemini-1.5-pro-latest"),
     system: systemPrompt,
@@ -181,7 +180,7 @@ const sendPDF = async (filePath: string) => {
         content: [
           {
             type: "file",
-            data: fs.readFileSync(filePath),
+            data: buffer,
             mimeType: "application/pdf",
           },
           {

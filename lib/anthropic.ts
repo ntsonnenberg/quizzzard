@@ -1,7 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
 import mammoth from "mammoth";
-import fs from "fs";
 
 /**
  * --------------------------------------------------------
@@ -22,7 +21,7 @@ export const anthropic = createAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-export const generateQuizFromPDF = async (filePath: string) => {
+export const generateQuizFromPDF = async (buffer: ArrayBuffer) => {
   try {
     const result = await generateText({
       model: anthropic("claude-3-5-sonnet-20241022"),
@@ -33,7 +32,7 @@ export const generateQuizFromPDF = async (filePath: string) => {
           content: [
             {
               type: "file",
-              data: fs.readFileSync(filePath),
+              data: buffer,
               mimeType: "application/pdf",
             },
             {
@@ -52,10 +51,10 @@ export const generateQuizFromPDF = async (filePath: string) => {
   }
 };
 
-export const generateQuizFromWordDoc = async (filePath: string) => {
+export const generateQuizFromWordDoc = async (buffer: ArrayBuffer) => {
   try {
     const { value: wordDocHtml } = await mammoth.convertToHtml({
-      path: filePath,
+      arrayBuffer: buffer,
     });
 
     const result = await generateText({

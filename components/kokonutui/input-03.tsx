@@ -69,8 +69,6 @@ export default function Input_03({ setFile }: Props) {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    console.log(selectedFile);
-
     handleFile(selectedFile);
   }
 

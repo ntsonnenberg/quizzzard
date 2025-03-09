@@ -28,44 +28,49 @@ Install Porfolio with npm
 Dependencies
 
 - **_@ai-sdk/anthropic_** v1.0.2
+- **_@ai-sdk/google_** v1.0.12
 - **_@ai-sdk/xai_** v1.0.6
 - **_@aws-sdk/client-s3_** v3.172.0
 - **_@aws-sdk/s3-request-presigner_** v3.172.0
+- **_@clerk/nextjs_** v6.12.0
 - **_@radix-ui/react-slot_** v1.1.1
 - **_ai_** v4.0.7
 - **_axios_** v1.7.8
 - **_class-variance-authority_** v0.7.0
 - **_clsx_** v2.1.1
+- **_file-type_** v20.4.0
+- **_flagsmith_** v9.0.4
+- **_loops_** v4.0.0
 - **_lucide-react_** v0.460.0
 - **_mammoth_** v1.8.0
-- **_mime_** v4.0.4
-- **_next_** 15.0.3
-- **_react_** 19.0.0-rc-66855b96-20241106
-- **_react-dom_** 19.0.0-rc-66855b96-20241106
+- **_motion_** v12.4.7
+- **_next_** 15.2.1
+- **_react_** v19.0.0
+- **_react-dom_** v19.0.0
 - **_react-icons_** v5.3.0
 - **_tailwind-merge_** v2.5.5
 - **_tailwindcss-animate_** v1.0.7
+- **_zod_** v3.24.2
 
 Dev Dependencies
 
+- **_@tailwindcss/postcss_** v4.0.0
 - **_@types/formidable_** v3.4.5
 - **_@types/node_** v20
-- **_@types/react_** v18
-- **_@types/react-dom_** v18
+- **_@types/react_** v19.0.10
+- **_@types/react-dom_** v19.0.4
 - **_eslint_** v8
 - **_eslint-config-next_** v15.0.3
 - **_formidable_** v3.5.2
 - **_postcss_** v8
-- **_tailwindcss_** v3.4.1
-- **_typescript_** v5
+- **_tailwindcss_** v4.0.0
+- **_typescript_** v5.1.3
 
 ## Roadmap
 
-- Extract text from PDF files to reduce token usage with Anthropic
-
 - Configure prompt chaining to upload textbook pages to convert to notes and then convert to quiz questions
 
-- Configure Authentication and user account creation
+- Optmize for gathering feedback and product validation
 
 ## Feedback
 

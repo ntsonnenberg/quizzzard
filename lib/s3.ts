@@ -5,8 +5,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import fs from "fs";
-import mime from "mime";
+import { fileTypeFromBuffer } from "file-type";
 
 /**
  * --------------------------------------------------------
@@ -45,32 +44,20 @@ const acceptedFileTypes = [
  * --------------------------------------------------------
  */
 
-export const uploadNoteToS3 = async (fileName: string, filePath: string) => {
+export const uploadNoteToS3 = async (fileName: string, buffer: ArrayBuffer) => {
   try {
+    const contentType = await validateContentType(buffer);
+
     // Parameters for S3 upload
     const params = {
       Bucket: bucketName,
       Key: `${folders.notes}/${fileName}`,
-      Body: fs.createReadStream(filePath),
-      ContentType: validateContentType(filePath),
+      Body: Buffer.from(buffer),
+      ContentType: contentType,
     };
 
     // Upload file to S3
-    await s3Client.send(new PutObjectCommand(params)).then(() => {
-      // Delete file from local fs after upload
-      if (fs.existsSync(filePath)) {
-        fs.unlink(filePath, (error) => {
-          if (error) {
-            console.error(
-              "Could not delete file from local file system:",
-              error
-            );
-          } else {
-            console.log("File deleted successfully from local file system.");
-          }
-        });
-      }
-    });
+    await s3Client.send(new PutObjectCommand(params));
   } catch (error) {
     console.error(error);
     throw error;
@@ -138,16 +125,16 @@ const doesNoteExist = async (fileName: string) => {
   }
 };
 
-const validateContentType = (filePath: string) => {
-  const contentType = mime.getType(filePath) || "";
+const validateContentType = async (buffer: ArrayBuffer) => {
+  const contentType = await fileTypeFromBuffer(buffer);
 
-  if (!acceptedFileTypes.includes(contentType)) {
+  if (!acceptedFileTypes.includes(contentType?.mime || "")) {
     throw new Error(
-      `Unsupported file type: ${contentType}. Accepted types are ${acceptedFileTypes.join(
-        ", "
-      )}.`
+      `Unsupported file type: ${
+        contentType?.mime
+      }. Accepted types are ${acceptedFileTypes.join(", ")}.`
     );
   }
 
-  return contentType;
+  return contentType?.mime;
 };
