@@ -65,7 +65,7 @@ export default function AIAgentSupportFeature() {
             </p>
           </motion.div>
         </div>
-        <div className="my-20 sm:mt-16 flex justify-center rounded-3xl transition-transform ease-in-out ring-1 ring-secondary-variant/50 shadow-xl hover:ring-2 hover:shadow-2xl shadow-secondary-variant bg-white hover:-translate-y-2">
+        <div className="my-20 sm:mt-16 flex justify-center rounded-lg lg:rounded-3xl transition-transform ease-in-out ring-1 ring-secondary-variant/50 shadow-xl hover:ring-2 hover:shadow-2xl shadow-secondary-variant bg-white hover:-translate-y-2">
           <Image
             alt="Quizzzard agent page"
             src="/images/quizzzard-agent.png"

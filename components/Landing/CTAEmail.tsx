@@ -110,7 +110,7 @@ export default function CTAEmail() {
         </div>
         <form action={action} className="max-w-xl mx-auto mt-12">
           <div className="sm:p-2 sm:border-2 sm:border-transparent sm:rounded-full sm:focus-within:border-primary sm:ring-1 sm:ring-primary">
-            <div className="flex flex-col items-start sm:flex-row sm:justify-center">
+            <div className="flex flex-col items-center lg:items-start sm:flex-row sm:justify-center">
               <div className="flex-1 w-full min-w-0">
                 <div className="relative text-gray-400 focus-within:text-gray-600">
                   <label htmlFor="email" className="sr-only"></label>

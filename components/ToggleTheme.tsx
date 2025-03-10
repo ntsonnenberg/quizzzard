@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
-export default function ToggleTheme() {
+export default function ToggleTheme({ showLabel }: { showLabel?: boolean }) {
   const [theme, setTheme] = useState<string>("light");
 
   useEffect(() => {
@@ -21,7 +21,13 @@ export default function ToggleTheme() {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  return <ThemeButton onModeChange={toggleTheme} currentTheme={theme} />;
+  return (
+    <ThemeButton
+      showLabel={showLabel}
+      onModeChange={toggleTheme}
+      currentTheme={theme}
+    />
+  );
 }
 
 interface Btn10Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -66,7 +72,7 @@ function ThemeButton({
       onClick={handleClick}
       {...props}
     >
-      <div className="flex items-center gap-2 transition-all duration-200">
+      <div className="flex justify-center items-center gap-2 transition-all duration-200">
         <Icon
           className="transition-all duration-200 w-3.5 h-3.5
             group-hover:rotate-[-8deg] group-hover:scale-110

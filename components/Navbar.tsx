@@ -1,22 +1,32 @@
+"use client";
+
+import { useState } from "react";
 import ToggleTheme from "./ToggleTheme";
 import Link from "next/link";
 
-export default async function Navbar() {
+export default function Navbar() {
+  const [showDrawer, setShowDrawer] = useState(false);
+
   return (
-    <header className="bg-transparent lg:py-8 fixed top-0 w-full z-50">
+    <header className="bg-transparent py-4 lg:py-8 fixed top-0 w-full z-50">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <nav className="bg-primary-foreground relative flex items-center justify-between h-16 lg:rounded-md lg:shadow-lg lg:h-24 lg:px-8 lg:py-6">
+        <nav className="bg-primary-foreground relative flex items-center justify-between h-16 rounded-md shadow-lg lg:h-24 px-2 lg:px-8 lg:py-6">
           <div className="flex-shrink-0">
-            <Link href="/" title="" className="flex text-4xl font-bold">
+            <Link
+              href="/"
+              title=""
+              className="flex text-2xl lg:text-4xl font-bold"
+            >
               Quizzzard
             </Link>
           </div>
           <button
             type="button"
-            className="inline-flex p-2 ml-5 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100"
+            onClick={() => setShowDrawer(!showDrawer)}
+            className="inline-flex p-2 ml-5 transition-all duration-200 rounded-md lg:hidden hover:bg-gray-100"
           >
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 stroke-primary"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -71,36 +81,30 @@ export default async function Navbar() {
             <ToggleTheme />
           </div>
         </nav>
-
-        <nav className="flex flex-col py-4 space-y-2 lg:hidden">
-          <Link
-            href="/#features"
-            title="Fetures Section"
-            className="py-2 text-base font-medium text-black transition-all duration-200"
-          >
-            Features
-          </Link>
-          <Link
-            href="/#about"
-            title="About Section"
-            className="py-2 text-base font-medium text-black transition-all duration-200"
-          >
-            About
-          </Link>
-          <Link
-            href="/#pricing"
-            title="Pricing Section"
-            className="py-2 text-base font-medium text-black transition-all duration-200"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="https://forms.gle/PiSKaiAfnqEGnUcJ6"
-            title="Feedback Survey"
-            className="py-2 text-base font-medium text-black transition-all duration-200"
-          >
-            Feedback
-          </Link>
+        <nav
+          className={`fixed inset-0 flex flex-col items-center bg-primary-foreground transition-all duration-300 ${
+            showDrawer
+              ? "translate-y-0 -z-10 visible"
+              : "-translate-y-full invisible"
+          }`}
+        >
+          <div className="flex flex-col py-40 space-y-10">
+            <Link
+              href="https://forms.gle/PiSKaiAfnqEGnUcJ6"
+              title="Feedback Survey"
+              className="primary py-2 text-xl transition-all duration-200"
+            >
+              Feedback
+            </Link>
+            <Link
+              href="/?show=true"
+              title="Stay Updated Prompt"
+              className="primary text-xl transition-all duration-200 hover:text-primary-variant"
+            >
+              Stay Updated
+            </Link>
+            <ToggleTheme showLabel={true} />
+          </div>
         </nav>
       </div>
     </header>
