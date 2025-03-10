@@ -94,7 +94,7 @@ export default async function Hero() {
                 </div>
               </div>
             </div>
-            <div className="mt-8 md:absolute md:mt-0 md:top-32 lg:-top-24 md:right-20">
+            <div className="invisible lg:visible mt-8 md:absolute md:mt-0 md:top-32 lg:-top-24 md:right-20">
               {/* <Image
                 src="/images/liquid-blob-square.gif"
                 alt="AI Blob"
