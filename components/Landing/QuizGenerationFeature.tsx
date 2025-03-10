@@ -6,8 +6,11 @@ export default async function QuizGenerationFeature() {
   const hasAccess = (await cookies()).has("temporary_token");
 
   return (
-    <section id="features" className="mt-20 mb-40 sm:py-16 lg:py-20 xl:py-24">
-      <div className="mt-20 px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+    <section
+      id="features"
+      className="bg-[url(/low-poly-grid-haikei.svg)] py-20 mb-40 sm:py-16 lg:py-20 xl:py-24"
+    >
+      <div className="mt-20 text-white px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-x-20 gap-y-12">
           <div className="grid overflow-hidden bg-blue-100 lg:col-span-3 rounded-3xl place-items-end">
             <Image
@@ -54,7 +57,7 @@ export default async function QuizGenerationFeature() {
             </div>
 
             <div className="pt-8 mt-12 border-t border-muted-foreground md:mt-16 xl:mt-24">
-              <p className="text-base font-normal leading-7 text-muted-foreground xl:pr-24">
+              <p className="font-bold text-white leading-7 xl:pr-24">
                 “Quizzzard has helped me a ton with my study habits. It has
                 become an integral part of my learning and test prep process.
                 I&apos;ve been able to learn my course material in a
