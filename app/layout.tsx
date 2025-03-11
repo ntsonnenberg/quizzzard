@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import flagsmith from "flagsmith/isomorphic";
 import FlagProvider from "@/providers/FlagProvider";
 import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -52,6 +54,8 @@ export default async function RootLayout({
           <div className="mt-40">{children}</div>
           <Footer />
         </FlagProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
