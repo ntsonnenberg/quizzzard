@@ -2,13 +2,16 @@ import * as motion from "motion/react-client";
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="my-20 sm:py-16 lg:py-20 xl:py-24">
-      <div className="mt-20 px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+    <section
+      id="pricing"
+      className="bg-[url(/blurry-gradient-haikei.svg)] bg-cover my-10 sm:py-16 lg:py-20 xl:py-24"
+    >
+      <div className="h-screen flex flex-col justify-center px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-normal sm:text-4xl lg:text-5xl xl:text-6xl">
+          <h2 className="text-3xl text-white sm:text-4xl lg:text-5xl xl:text-6xl">
             Simple, easy pricing
           </h2>
-          <p className="mt-6 text-lg font-normal text-muted-foreground">
+          <p className="mt-6 text-lg text-muted">
             We wish to deliver a working prototype to validate and improve
             Quizzzard AI. For this reason our current AI services during the
             prototyping phase is...
@@ -18,7 +21,7 @@ export default function Pricing() {
           animate={{ translateY: -20 }}
           transition={{ duration: 1, delay: 0.2 }}
           whileInView={{ opacity: 1 }}
-          className="opacity-0 flex justify-center items-baseline text-6xl mt-20"
+          className="opacity-0 flex text-white justify-center items-baseline text-6xl mt-20"
         >
           Free <span className="text-2xl">/month</span>
         </motion.h3>

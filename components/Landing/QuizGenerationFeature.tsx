@@ -8,7 +8,7 @@ export default async function QuizGenerationFeature() {
   return (
     <section
       id="features"
-      className="bg-[url(/low-poly-grid-haikei.svg)] py-20 mb-40 sm:py-16 lg:py-20 xl:py-24"
+      className="bg-[url(/low-poly-grid-haikei.svg)] bg-cover h-screen py-20 mb-40 sm:py-16 lg:py-20 xl:py-24"
     >
       <div className="mt-20 text-white px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-7 gap-x-20 gap-y-12">
