@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className="font-bold text-3xl lg:text-6xl text-primary">
           Welcome to Quizzzard
         </h1>
-        <h2 className="font-bold text-lg lg:text-2xl">
+        <h2 className="font-thin text-lg lg:text-2xl">
           Please upload class notes to analyze
         </h2>
       </div>
