@@ -43,7 +43,7 @@ export default function Navbar() {
           <div className="hidden ml-10 lg:flex lg:items-center lg:mr-auto lg:space-x-10">
             <Link
               href="/#features"
-              title="Fetures Section"
+              title="Features Section"
               className="primary text-base font-medium transition-all duration-200 hover:text-primary-variant"
             >
               Features
