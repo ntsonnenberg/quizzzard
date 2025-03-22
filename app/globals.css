@@ -306,4 +306,9 @@
   }
 }
 
-
+#sentry-feedback {
+  --background: var(--primary);
+  --foreground: var(--primary-foreground);
+  --accent-background: var(--secondary);
+  --accent-foreground: var(--secondary-foreground);
+}
